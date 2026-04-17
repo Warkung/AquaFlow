@@ -17,10 +17,11 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', { username, password });
-      const { token, _id, role } = response.data;
+      const { token, _id, role, username: loggedInUser } = response.data;
 
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
+      localStorage.setItem('username', loggedInUser);
 
       if (role === 'admin') {
         navigate('/admin');

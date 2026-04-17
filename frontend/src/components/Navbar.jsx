@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Droplet, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Droplet, LogOut, LayoutDashboard, Menu, X, User } from 'lucide-react';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,6 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
+  const storedUsername = localStorage.getItem('username');
 
   const getLinkStyle = (path) => ({
     color: location.pathname === path ? 'var(--color-primary)' : 'var(--color-text)',
@@ -20,6 +21,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('username');
     navigate('/login');
   };
 
@@ -57,6 +59,38 @@ const Navbar = () => {
                   <LayoutDashboard size={18} />
                   <span>Admin Panel</span>
                 </Link>
+              )}
+              {storedUsername && (
+                <div className="d-flex align-center gap-2" style={{ 
+                  background: 'rgba(0, 210, 255, 0.08)', 
+                  padding: '0.3rem 0.8rem 0.3rem 0.3rem', 
+                  borderRadius: '20px',
+                  border: '1px solid rgba(0, 210, 255, 0.2)',
+                  marginRight: '0.5rem',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+                }}>
+                  <div style={{
+                    background: 'linear-gradient(135deg, var(--color-primary) 0%, #007BFF 100%)',
+                    borderRadius: '50%',
+                    width: '28px',
+                    height: '28px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    boxShadow: '0 2px 5px rgba(0, 210, 255, 0.3)'
+                  }}>
+                    <User size={14} strokeWidth={2.5} />
+                  </div>
+                  <span style={{ 
+                    color: 'var(--color-text)', 
+                    fontWeight: '600', 
+                    fontSize: '0.9rem',
+                    letterSpacing: '0.5px'
+                  }}>
+                    {storedUsername}
+                  </span>
+                </div>
               )}
               <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>
                 <LogOut size={16} />

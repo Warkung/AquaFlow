@@ -17,10 +17,11 @@ const Register = () => {
 
     try {
       const response = await axios.post('/auth/register', { username, password });
-      const { token, role } = response.data;
+      const { token, role, username: loggedInUser } = response.data;
       
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
+      localStorage.setItem('username', loggedInUser);
 
       navigate('/dashboard');
     } catch (err) {
