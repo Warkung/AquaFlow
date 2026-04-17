@@ -50,7 +50,7 @@ const getPendingRequests = async (req, res) => {
   try {
     const requests = await Transaction.find({ status: 'pending', type: { $in: ['buy', 'withdraw'] } })
       .populate('user', 'username stock_balance')
-      .sort({ createdAt: -1 });
+      .sort({ updatedAt: -1 });
     res.status(200).json(requests);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -105,10 +105,34 @@ const processRequest = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+// @desc    Get all users
+// @route   GET /api/admin/users
+// @access  Private (Admin)
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'customer' }).select('-password').sort({ updatedAt: -1 });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
+// @desc    Get specific user's transactions
+// @route   GET /api/admin/users/:id/transactions
+// @access  Private (Admin)
+const getUserTransactions = async (req, res) => {
+  try {
+    const transactions = await Transaction.find({ user: req.params.id }).sort({ updatedAt: -1 });
+    res.status(200).json(transactions);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 module.exports = {
   setPrice,
   getPrice,
   getPendingRequests,
   processRequest,
+  getAllUsers,
+  getUserTransactions,
 };
