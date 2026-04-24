@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axiosConfig';
-import { UserPlus } from 'lucide-react';
+import { UserPlus, RefreshCw } from 'lucide-react';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -76,8 +76,8 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
-            {loading ? 'Creating account...' : 'Sign Up'}
+          <button type="submit" className="btn btn-primary d-flex justify-center align-center gap-2" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
+            {loading ? <><RefreshCw size={18} className="animate-spin" /> Creating account...</> : 'Sign Up'}
           </button>
         </form>
 

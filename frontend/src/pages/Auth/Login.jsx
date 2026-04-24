@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axiosConfig';
-import { Droplet } from 'lucide-react';
+import { Droplet, RefreshCw } from 'lucide-react';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -79,8 +79,8 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+          <button type="submit" className="btn btn-primary d-flex justify-center align-center gap-2" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
+            {loading ? <><RefreshCw size={18} className="animate-spin" /> Signing in...</> : 'Sign In'}
           </button>
         </form>
 

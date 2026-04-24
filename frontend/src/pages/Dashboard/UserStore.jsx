@@ -73,7 +73,9 @@ const UserStore = () => {
           </h3>
 
           {loading ? (
-            <p style={{ color: 'var(--color-text-muted)' }}>Loading store data...</p>
+            <div className="d-flex justify-center align-center" style={{ padding: '3rem 0' }}>
+              <RefreshCw className="animate-spin" size={32} color="var(--color-primary)" />
+            </div>
           ) : (
             <>
               <p style={{ fontSize: '1rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>
