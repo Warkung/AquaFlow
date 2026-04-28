@@ -57,6 +57,7 @@ const UserWithdraw = () => {
       setStockBalance(res.data.stock_balance);
       setWithdrawQuantity('');
       showMessage('Withdrawal request submitted! Waiting for admin approval.');
+      fetchData(); // refresh history and balance
     } catch (err) {
       showMessage(err.response?.data?.message || 'Withdrawal failed', 'error');
     }
@@ -147,11 +148,10 @@ const UserWithdraw = () => {
                     {t.status === 'pending' && (
                       <button 
                         onClick={() => handleCancel(t._id)}
-                        className="btn btn-outline" 
-                        style={{ padding: '0.1rem 0.3rem', border: 'none', color: 'var(--color-danger)', marginLeft: '0.3rem' }}
+                        className="btn-cancel-icon" 
                         title="Cancel Request"
                       >
-                        <XCircle size={14} />
+                        <XCircle size={14} /> Cancel
                       </button>
                     )}
                   </div>

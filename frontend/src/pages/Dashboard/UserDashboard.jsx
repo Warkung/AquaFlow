@@ -122,11 +122,10 @@ const UserDashboard = () => {
                           {t.status === 'pending' && (
                             <button 
                               onClick={() => handleCancel(t._id)}
-                              className="btn btn-outline" 
-                              style={{ padding: '0.2rem 0.4rem', border: 'none', color: 'var(--color-danger)', marginLeft: '0.5rem' }}
+                              className="btn-cancel-icon" 
                               title="Cancel Request"
                             >
-                              <XCircle size={16} />
+                              <XCircle size={14} /> Cancel
                             </button>
                           )}
                         </div>

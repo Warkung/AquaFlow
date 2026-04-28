@@ -478,3 +478,36 @@ tr:last-child td {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
+/* Beautiful Cancel Button */
+.btn-cancel-icon {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-left: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-cancel-icon:hover {
+  background: var(--color-danger);
+  color: white;
+  border-color: var(--color-danger);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-cancel-icon:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+}
