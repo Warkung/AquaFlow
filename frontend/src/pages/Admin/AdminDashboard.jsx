@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
 import { PackageSearch, CheckCircle, XCircle, RefreshCw, DollarSign, Users, ChevronDown, ChevronUp } from 'lucide-react';
+import Loader from '../../components/Loader';
 
 const AdminDashboard = () => {
   const [requests, setRequests] = useState([]);
@@ -89,11 +90,7 @@ const AdminDashboard = () => {
   };
 
   if (loading && requests.length === 0) {
-    return (
-      <div className="d-flex justify-center align-center" style={{ minHeight: '50vh' }}>
-        <RefreshCw className="animate-spin" size={32} color="var(--color-primary)" />
-      </div>
-    );
+    return <Loader fullScreen={true} />;
   }
 
   return (

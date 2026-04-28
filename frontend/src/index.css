@@ -411,3 +411,70 @@ tr:last-child td {
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+/* Liquid Loader */
+.liquid-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  gap: 1.5rem;
+}
+
+.liquid-loader {
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.liquid-loader::before, .liquid-loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0;
+  animation: ripple 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+  box-shadow: 0 0 20px var(--color-primary);
+}
+
+.liquid-loader::after {
+  animation-delay: -1s;
+}
+
+.loader-text {
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; text-shadow: 0 0 10px var(--color-primary); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

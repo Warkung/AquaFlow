@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
 import { Package, ShoppingCart, ArrowDownToLine, RefreshCw } from 'lucide-react';
+import Loader from '../../components/Loader';
 
 const UserDashboard = () => {
   const [stockBalance, setStockBalance] = useState(0);
@@ -35,11 +36,7 @@ const UserDashboard = () => {
 
 
   if (loading && transactions.length === 0) {
-    return (
-      <div className="d-flex justify-center align-center" style={{ minHeight: '50vh' }}>
-        <RefreshCw className="animate-spin" size={32} color="var(--color-primary)" />
-      </div>
-    );
+    return <Loader fullScreen={true} />;
   }
 
   return (

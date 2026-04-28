@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
 import { ArrowDownToLine, RefreshCw } from 'lucide-react';
+import Loader from '../../components/Loader';
 
 const UserWithdraw = () => {
   const [stockBalance, setStockBalance] = useState(0);
@@ -73,9 +74,7 @@ const UserWithdraw = () => {
           </h3>
 
           {loading ? (
-            <div className="d-flex justify-center align-center" style={{ padding: '3rem 0' }}>
-              <RefreshCw className="animate-spin" size={32} color="var(--color-primary)" />
-            </div>
+            <Loader />
           ) : (
             <>
               <p style={{ fontSize: '1rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>
