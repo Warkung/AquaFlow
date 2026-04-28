@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
-import { ShoppingCart, RefreshCw } from 'lucide-react';
+import { ShoppingCart, RefreshCw, XCircle } from 'lucide-react';
 import Loader from '../../components/Loader';
 
 const UserStore = () => {
@@ -33,6 +33,19 @@ const UserStore = () => {
   const showMessage = (text, type = 'success') => {
     setMessage({ text, type });
     setTimeout(() => setMessage({ text: '', type: '' }), 5000);
+  };
+
+  const handleCancel = async (transactionId) => {
+    if (!window.confirm('Are you sure you want to cancel this request?')) return;
+    try {
+      setLoading(true);
+      await axios.put(`/store/transactions/${transactionId}/cancel`);
+      showMessage('Purchase request cancelled');
+      fetchData();
+    } catch (err) {
+      showMessage(err.response?.data?.message || 'Failed to cancel', 'error');
+      setLoading(false);
+    }
   };
 
   const handleBuy = async (e) => {
@@ -128,9 +141,21 @@ const UserStore = () => {
                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>{new Date(t.createdAt).toLocaleDateString()}</div>
                     <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>{t.quantity} Bottles</div>
                   </div>
-                  <span className={`badge ${t.status === 'completed' ? 'badge-success' : t.status === 'rejected' ? 'badge-warning' : 'badge-warning'}`} style={{ backgroundColor: t.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : undefined, color: t.status === 'rejected' ? 'var(--color-danger)' : undefined, borderColor: t.status === 'rejected' ? 'rgba(239, 68, 68, 0.3)' : undefined }}>
-                    {t.status}
-                  </span>
+                  <div className="d-flex align-center">
+                    <span className={`badge ${t.status === 'completed' ? 'badge-success' : t.status === 'rejected' || t.status === 'cancelled' ? 'badge-warning' : 'badge-warning'}`} style={{ backgroundColor: t.status === 'rejected' || t.status === 'cancelled' ? 'rgba(239, 68, 68, 0.2)' : undefined, color: t.status === 'rejected' || t.status === 'cancelled' ? 'var(--color-danger)' : undefined, borderColor: t.status === 'rejected' || t.status === 'cancelled' ? 'rgba(239, 68, 68, 0.3)' : undefined }}>
+                      {t.status}
+                    </span>
+                    {t.status === 'pending' && (
+                      <button 
+                        onClick={() => handleCancel(t._id)}
+                        className="btn btn-outline" 
+                        style={{ padding: '0.1rem 0.3rem', border: 'none', color: 'var(--color-danger)', marginLeft: '0.3rem' }}
+                        title="Cancel Request"
+                      >
+                        <XCircle size={14} />
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

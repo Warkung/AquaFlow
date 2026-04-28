@@ -99,8 +99,57 @@ const getMyTransactions = async (req, res) => {
   }
 };
 
+// @desc    Cancel a pending transaction (buy or withdraw)
+// @route   PUT /api/store/transactions/:id/cancel
+// @access  Private (Customer)
+const cancelTransaction = async (req, res) => {
+  try {
+    const transactionId = req.params.id;
+    const transaction = await Transaction.findById(transactionId);
+
+    if (!transaction) {
+      return res.status(404).json({ message: 'Transaction not found' });
+    }
+
+    // Ensure transaction belongs to the user
+    if (transaction.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'Not authorized to cancel this transaction' });
+    }
+
+    if (transaction.status !== 'pending') {
+      return res.status(400).json({ message: 'Only pending transactions can be cancelled' });
+    }
+
+    // Process Refund
+    if (transaction.type === 'buy') {
+      // Refund to store stock
+      const product = await Product.findOne({ name: '1.5L Water' });
+      if (product) {
+        product.stock += transaction.quantity;
+        await product.save();
+      }
+    } else if (transaction.type === 'withdraw') {
+      // Refund to user virtual stock
+      const user = await User.findById(req.user._id);
+      if (user) {
+        user.stock_balance += transaction.quantity;
+        await user.save();
+      }
+    }
+
+    transaction.status = 'cancelled';
+    await transaction.save();
+
+    res.status(200).json({ message: 'Transaction cancelled successfully', transaction });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error during cancellation' });
+  }
+};
+
 module.exports = {
   buyProduct,
   withdrawProduct,
   getMyTransactions,
+  cancelTransaction,
 };

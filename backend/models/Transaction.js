@@ -21,7 +21,7 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'completed', 'rejected'],
+    enum: ['pending', 'completed', 'rejected', 'cancelled'],
     default: 'completed', // 'withdraw' will set this to 'pending'
   }
 }, { timestamps: true });
