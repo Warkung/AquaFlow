@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="d-flex justify-between align-center" style={{ width: '100%' }}>
         <Link to="/" className="d-flex align-center gap-1" style={{ fontSize: '1.25rem', fontWeight: '700' }}>
           <Droplet size={28} color="var(--color-primary)" />
-          <span className="text-gradient">AquaFlow</span>
+          <span className="text-gradient">ยุ้ยน้ำดื่ม</span>
         </Link>
 
         <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
@@ -61,9 +61,9 @@ const Navbar = () => {
                 </Link>
               )}
               {storedUsername && (
-                <div className="d-flex align-center gap-2" style={{ 
-                  background: 'rgba(0, 210, 255, 0.08)', 
-                  padding: '0.3rem 0.8rem 0.3rem 0.3rem', 
+                <div className="d-flex align-center gap-2" style={{
+                  background: 'rgba(0, 210, 255, 0.08)',
+                  padding: '0.3rem 0.8rem 0.3rem 0.3rem',
                   borderRadius: '20px',
                   border: '1px solid rgba(0, 210, 255, 0.2)',
                   marginRight: '0.5rem',
@@ -82,9 +82,9 @@ const Navbar = () => {
                   }}>
                     <User size={14} strokeWidth={2.5} />
                   </div>
-                  <span style={{ 
-                    color: 'var(--color-text)', 
-                    fontWeight: '600', 
+                  <span style={{
+                    color: 'var(--color-text)',
+                    fontWeight: '600',
                     fontSize: '0.9rem',
                     letterSpacing: '0.5px'
                   }}>

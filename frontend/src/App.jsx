@@ -14,12 +14,12 @@ function App() {
     const role = localStorage.getItem('role');
 
     if (!token) return <Navigate to="/login" />;
-    
+
     if (strictRole) {
       if (strictRole === 'customer' && role !== 'customer') return <Navigate to="/admin" />;
       if (strictRole === 'admin' && role !== 'admin') return <Navigate to="/dashboard" />;
     }
-    
+
     return children;
   };
 
@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            
+
             <Route path="/dashboard" element={
               <PrivateRoute strictRole="customer">
                 <UserDashboard />
@@ -48,7 +48,7 @@ function App() {
                 <UserWithdraw />
               </PrivateRoute>
             } />
-            
+
             <Route path="/admin" element={
               <PrivateRoute strictRole="admin">
                 <AdminDashboard />
